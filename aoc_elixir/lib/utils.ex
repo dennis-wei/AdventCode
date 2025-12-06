@@ -1,6 +1,10 @@
 defmodule Utils do
-  def get_all_nums(s) do
-    Regex.scan(~r/-?\d+/, s)
+  def get_all_nums(s, negative \\ true) do
+    expr = cond do
+      negative -> ~r/-?\d+/
+      true -> ~r/\d+/
+    end
+    Regex.scan(expr, s)
       |> List.flatten
       |> Enum.map(&String.to_integer/1)
   end
